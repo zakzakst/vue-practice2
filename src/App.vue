@@ -5,13 +5,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+<script setup lang="ts">
 import FooterComponent from '@/components/FooterComponent.vue';
-
-export default defineComponent({
-  components: {
-    Footer: FooterComponent,
-  },
-});
 </script>
