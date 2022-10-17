@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-const isSendButtonDisabled = ref(true);
+const widthOrHeight = ref('height');
+const widthOrHeightValue = ref(100);
 </script>
 
 <template>
-  <p><button type="button" v-bind:disabled="isSendButtonDisabled">送信</button></p>
+  <p><img src="/src/assets/logo.svg" alt="VueLogo" v-bind:[widthOrHeight]="widthOrHeightValue"></p>
 </template>
