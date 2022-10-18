@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const trimedText = ref('');
+const htmlStr = ref('<a href="https://vuejs.org/">Vue.jsのTOPページ</a>');
 </script>
 
 <template>
-  <section>
-    <input type="text" v-model.trim="trimedText">
-    <p>入力文字列：{{ trimedText }}</p>
-  </section>
+  <section>{{ htmlStr }}</section>
+  <section v-html="htmlStr"></section>
 </template>
