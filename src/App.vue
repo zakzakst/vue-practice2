@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-const price = ref(1000);
+const hello = ref('こんにちは！');
 </script>
 
 <template>
-  <section>
-    <input type="number" v-model="price">円
-    <p>金額は{{ price }}円です。</p>
-    <p v-once>金額は{{ price }}円です。</p>
-  </section>
+  <p v-cloak>{{ hello }}</p>
 </template>
+
+<style>
+[v-cloak] {
+  display: none;
+}
+</style>
