@@ -10,10 +10,10 @@ const randomNumber = computed(
 
 <template>
   <p>
-    点数は{{ randomNumber }}点で
-    <span v-if="randomNumber >= 80">優です。</span>
-    <span v-else-if="randomNumber >= 70">良です。</span>
-    <span v-else-if="randomNumber >= 60">可です。</span>
-    <span v-else>不可です。</span>
+    点数は{{ randomNumber }}点
+    <template v-if="randomNumber >= 80">
+      で優です。
+      <span style="color: red">すばらしい！</span>
+    </template>
   </p>
 </template>
