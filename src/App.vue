@@ -1,52 +1,30 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
-const cocktailDataListInit: Cocktail[] = [
-  { id: 2345, name: 'ホワイトレディ', price: 1200 },
-  { id: 4412, name: 'ブルーハワイ', price: 1500 },
-  { id: 6792, name: 'ニューヨーク', price: 1100 },
-  { id: 8429, name: 'マティーニ', price: 1500 },
-];
-const cocktailDataList = ref(cocktailDataListInit);
-const cocktail1500 = computed(
-  (): Cocktail[] => {
-    const newList = cocktailDataList.value.filter(
-      (cocktailItem: Cocktail): boolean => {
-        return cocktailItem.price == 1500;
-      }
-    )
-    return newList;
-  }
-);
+const cocktailListInit: string[] = ['ホワイトレディ', 'ブルーハワイ', 'ニューヨーク'];
+const cocktailList = ref(cocktailListInit);
 
-interface Cocktail {
-  id: number;
-  name: string;
-  price: number;
-}
+const changeCocktailList = (): void => {
+  cocktailList.value = ['パラライカ', 'XYZ', 'マンハッタン'];
+};
+const addCocktailList = (): void => {
+  cocktailList.value.push('ブルームーン');
+};
+const deleteFromCocktailList = (): void => {
+  cocktailList.value.pop();
+};
 </script>
 
 <template>
-  <section>
-    全てのカクテルリスト
-    <ul>
-      <li
-        v-for="cocktailItem in cocktailDataList"
-        v-bind:key="'cocktail' + cocktailItem.id"
-      >
-        {{ cocktailItem.name }}の値段は{{ cocktailItem.price }}円
-      </li>
-    </ul>
-  </section>
-  <section>
-    値段が1500円のカクテルリスト
-    <ul>
-      <li
-        v-for="cocktailItem in cocktail1500"
-        v-bind:key="'cocktail1500' + cocktailItem.id"
-      >
-        {{ cocktailItem.name }}の値段は{{ cocktailItem.price }}円
-      </li>
-    </ul>
-  </section>
+  <ul>
+    <li
+      v-for="(cocktailName, index) in cocktailList"
+      v-bind:key="cocktailName"
+    >
+      {{ cocktailName }}（インデックス{{ index }}）
+    </li>
+  </ul>
+  <p>cocktailListを<button v-on:click="changeCocktailList">変更</button></p>
+  <p>cocktailListを<button v-on:click="addCocktailList">追加</button></p>
+  <p>cocktailListを<button v-on:click="deleteFromCocktailList">削除</button></p>
 </template>
