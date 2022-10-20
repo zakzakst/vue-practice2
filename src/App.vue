@@ -1,36 +1,33 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const cocktailListInit = new Map<number, string>();
-cocktailListInit.set(2345, 'ホワイトレディ');
-cocktailListInit.set(4412, 'ブルーハワイ');
-cocktailListInit.set(6792, 'ニューヨーク');
-const cocktailList = ref(cocktailListInit);
+const whiteLadyInit: {
+  id: number;
+  name: string;
+  price: number;
+  recipe: string;
+} = {
+  id: 2345,
+  name: 'ホワイトレディ',
+  price: 1200,
+  recipe: 'text'
+};
+const whiteLady = ref(whiteLadyInit);
 
-const changeCocktailList = (): void => {
-  cocktailList.value.clear();
-  cocktailList.value.set(3416, 'パラライカ');
-  cocktailList.value.set(5517, 'XYZ');
-  cocktailList.value.set(7415, 'マンハッタン');
-};
-const addCocktailList = (): void => {
-  cocktailList.value.set(8894, 'ブルームーン');
-};
-const deleteFromCocktailList = (): void => {
-  cocktailList.value.delete(5517);
-};
+const changeWhiteLadyPrice = (): void => {
+  whiteLady.value.price = 1500;
+}
 </script>
 
 <template>
-  <ul>
-    <li
-      v-for="[id, cocktailName] in cocktailList"
-      v-bind:key="id"
+  <dl>
+    <template
+      v-for="(value, key) in whiteLady"
+      v-bind:key="key"
     >
-      IDが{{ id }}のカクテルは{{ cocktailName }}
-    </li>
-  </ul>
-  <p>cocktailListを<button v-on:click="changeCocktailList">変更</button></p>
-  <p>cocktailListを<button v-on:click="addCocktailList">追加</button></p>
-  <p>cocktailListを<button v-on:click="deleteFromCocktailList">削除</button></p>
+      <dt>{{ key }}</dt>
+      <dd>{{ value }}</dd>
+    </template>
+  </dl>
+  <p>whiteLadyを<button v-on:click="changeWhiteLadyPrice">変更</button></p>
 </template>
