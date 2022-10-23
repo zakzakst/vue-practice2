@@ -2,30 +2,30 @@
 import { ref, computed } from 'vue';
 
 const cocktailDataListInit = new Map<number, Cocktail>();
-cocktailDataListInit.set(2345, { id: 2345, name: 'ホワイトレディ', price: 1200 });
-cocktailDataListInit.set(4412, { id: 4412, name: 'ブルーハワイ', price: 1500 });
-cocktailDataListInit.set(6792, { id: 6792, name: 'ニューヨーク', price: 1100 });
-cocktailDataListInit.set(8429, { id: 8429, name: 'マティーニ', price: 1500 });
-const cocktailDataList = ref(cocktailDataListInit);
+cocktailDataListInit.set(1, { id: 1, name: 'ホワイトレディ', price: 1200 });
+cocktailDataListInit.set(2, { id: 2, name: 'ブルーハワイ', price: 1500 });
+cocktailDataListInit.set(3, { id: 3, name: 'ニューヨーク', price: 1100 });
+cocktailDataListInit.set(4, { id: 4, name: 'マティーニ', price: 1500 });
 
-const cocktail1500 = computed(
-  (): Map<number, Cocktail> => {
-    const newList = new Map<number, Cocktail>();
-    cocktailDataList.value.forEach(
-      (value: Cocktail, key: number): void => {
-        if (value.price == 1500) {
-          newList.set(key, value);
-        }
-      }
-    );
-    return newList;
+const cocktailNo = ref(1);
+
+const priceMsg = computed(
+  (): string => {
+    const cocktail = cocktailDataListInit.get(cocktailNo.value);
+    let msg = '該当カクテルはありません';
+    if (cocktail != undefined) {
+      msg = `該当するカクテルは${cocktail.name}で、価格は${cocktail.price}円です。`;
+    }
+    return msg;
   }
 );
 
-const changeWhiteLadyPrice = (): void => {
-  const whiteLady = cocktailDataList.value.get(2345) as Cocktail;
-  whiteLady.price = 1500;
-}
+setInterval(
+  (): void => {
+    cocktailNo.value = Math.round(Math.random() * 3) + 1;
+  },
+  1000
+);
 
 interface Cocktail {
   id: number;
@@ -35,19 +35,6 @@ interface Cocktail {
 </script>
 
 <template>
-  <ul>
-    全てのカクテルリスト
-    <li
-      v-for="[id, cocktailItem] in cocktailDataList"
-      v-bind:key="'cocktailDataList' + id"
-    >{{ cocktailItem.name + cocktailItem.price}}</li>
-  </ul>
-  <ul>
-    値段が1500円のカクテルリスト
-    <li
-      v-for="[id, cocktailItem] in cocktail1500"
-      v-bind:key="'cocktail1500' + id"
-    >{{ cocktailItem.name + cocktailItem.price}}</li>
-  </ul>
-  <p>whiteLadyを<button v-on:click="changeWhiteLadyPrice">変更</button></p>
+  <p>現在のカクテル番号：{{ cocktailNo }}</p>
+  <p>{{ priceMsg }}</p>
 </template>
