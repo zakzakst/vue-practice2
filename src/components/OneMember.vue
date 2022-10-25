@@ -10,7 +10,7 @@ interface Props {
 }
 
 interface Emits {
-  (event: 'incrementPoint', id: number): void;
+  (event: 'update:points', points: number): void;
 }
 
 const props = defineProps<Props>();
@@ -28,8 +28,13 @@ const localNote = computed(
   }
 );
 
-const pointUp = (): void => {
-  emit('incrementPoint', props.id);
+// const pointUp = (): void => {
+//   emit('incrementPoint', props.id);
+// }
+const onInput = (event: Event): void => {
+  const element = event.target as HTMLInputElement;
+  const inputPoints = Number(element.value);
+  emit('update:points', inputPoints);
 }
 </script>
 
@@ -42,11 +47,13 @@ const pointUp = (): void => {
       <dt>メールアドレス</dt>
       <dd>{{ email }}</dd>
       <dt>保有ポイント</dt>
-      <dd>{{ points }}</dd>
+      <dd>
+        <input type="number" :value="points" @input="onInput">
+      </dd>
       <dt>備考</dt>
       <dd>{{ localNote }}</dd>
     </dl>
-    <button @click="pointUp">ポイント加算</button>
+    <!-- <button @click="pointUp">ポイント加算</button> -->
   </section>
 </template>
 
