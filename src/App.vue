@@ -1,32 +1,50 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import OneInfo from './components/OneInfo.vue';
+import { ref, computed } from 'vue';
+import OneMember from './components/OneMember.vue';
 
-const weatherListInit = new Map<number, Weather>();
-weatherListInit.set(1, { id: 1, title: '今日の天気', content: '晴れ'});
-weatherListInit.set(2, { id: 2, title: '明日の天気', content: '雨'});
-weatherListInit.set(3, { id: 3, title: '明後日の天気', content: '雪'});
-const weatherList = ref(weatherListInit);
+const memberListInit = new Map<number, Member>();
+memberListInit.set(33456, { id: 33456, name: '田中太郎', email: '', points: 35, note: ''});
+memberListInit.set(47783, { id: 47783, name: '', email: '', points: 53});
+const memberList = ref(memberListInit);
 
-interface Weather {
+const totalPoints = computed(
+  (): number => {
+    let total = 0;
+    for (const member of memberList.value.values()) {
+      total += member.points;
+    }
+    return total;
+  }
+)
+
+interface Member {
   id: number;
-  title: string;
-  content: string;
+  name: string;
+  email: string;
+  points: number;
+  note?: string;
 }
 </script>
 
 <template>
-  <OneInfo
-    v-for="[id, weather] in weatherList"
-    :key="id"
-    :title="weather.title"
-    :content="weather.content"
-  />
+  <section>
+    <h1>会員リスト</h1>
+    <p>全会員の保有ポイントの合計：{{ totalPoints }}</p>
+    <OneMember
+      v-for="[id, member] in memberList"
+      :key="id"
+      :id="id"
+      :name="member.name"
+      :email="member.email"
+      :points="member.points"
+      :note="member.note"
+    />
+  </section>
 </template>
 
 <style>
-section {
-  border: blue 1px solid;
+.box {
+  border: green 1px solid;
   margin: 10px;
 }
 </style>
