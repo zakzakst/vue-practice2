@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 interface Props {
   id: number;
@@ -8,23 +8,28 @@ interface Props {
   points: number;
   note?: string;
 }
-const props = withDefaults(
-  defineProps<Props>(),
-  {note: '--'}
+
+interface Emits {
+  (event: 'incrementPoint', id: number): void;
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
+
+
+// const localPoints = ref(props.points);
+const localNote = computed(
+  (): string => {
+    let localNote = props.note;
+    if (localNote == undefined) {
+      localNote = '--';
+    }
+    return localNote;
+  }
 );
-const localPoints = ref(props.points);
-// const localNote = computed(
-//   (): string => {
-//     let localNote = props.note;
-//     if (localNote == undefined) {
-//       localNote = '--';
-//     }
-//     return localNote;
-//   }
-// );
 
 const pointUp = (): void => {
-  localPoints.value++;
+  emit('incrementPoint', props.id);
 }
 </script>
 
@@ -37,9 +42,9 @@ const pointUp = (): void => {
       <dt>メールアドレス</dt>
       <dd>{{ email }}</dd>
       <dt>保有ポイント</dt>
-      <dd>{{ localPoints }}</dd>
+      <dd>{{ points }}</dd>
       <dt>備考</dt>
-      <dd>{{ note }}</dd>
+      <dd>{{ localNote }}</dd>
     </dl>
     <button @click="pointUp">ポイント加算</button>
   </section>
