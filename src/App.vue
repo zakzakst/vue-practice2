@@ -17,12 +17,12 @@ const totalPoints = computed(
   }
 )
 
-const onIncrementPoint = (id: number): void => {
-  const member = memberList.value.get(id);
-  if (member != undefined) {
-    member.points++
-  }
-}
+// const onIncrementPoint = (id: number): void => {
+//   const member = memberList.value.get(id);
+//   if (member != undefined) {
+//     member.points++
+//   }
+// }
 
 interface Member {
   id: number;
@@ -40,11 +40,11 @@ interface Member {
       v-for="[id, member] in memberList"
       :key="id"
       :id="id"
+      v-model:points="member.points"
       :name="member.name"
       :email="member.email"
       :points="member.points"
       :note="member.note"
-      @incrementPoint="onIncrementPoint"
     />
   </section>
 </template>
