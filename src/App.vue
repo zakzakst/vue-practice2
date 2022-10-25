@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import OneSection from './components/OneSection.vue';
+import OneInfo from './components/OneInfo.vue';
 </script>
 
 <template>
-  <h1>コンポーネント基礎</h1>
-  <section>
-    <h2>コンポーネント1個</h2>
-    <OneSection />
-  </section>
-  <OneSection />
-  <OneSection />
+  <h2>属性に直接記述</h2>
+  <OneInfo
+    title="Propsの利用"
+    content="子コンポーネントにデータを渡すにはPropsを利用する。"
+  />
 </template>
 
 <style>
