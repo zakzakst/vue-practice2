@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import OneInfo from './components/OneInfo.vue';
+const propsTitle = ref('発生した乱数');
+const rand = Math.round(Math.random() * 100);
+const propsContent = ref(rand);
 </script>
 
 <template>
   <h2>属性に直接記述</h2>
   <OneInfo
-    title="Propsの利用"
-    content="子コンポーネントにデータを渡すにはPropsを利用する。"
+    :title="propsTitle"
+    :content="propsContent"
   />
 </template>
 
