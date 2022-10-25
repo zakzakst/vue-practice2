@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import OneMember from './components/OneMember.vue';
 
 const memberListInit = new Map<number, Member>();
-memberListInit.set(33456, { id: 33456, name: '田中太郎', email: '', points: 35, note: ''});
+memberListInit.set(33456, { id: 33456, name: '田中太郎', email: '', points: 35, note: 'test'});
 memberListInit.set(47783, { id: 47783, name: '', email: '', points: 53});
 const memberList = ref(memberListInit);
 
