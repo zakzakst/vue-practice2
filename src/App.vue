@@ -11,9 +11,14 @@ const jiro = ref('鈴木二郎');
 <template>
   <h2>Slotの利用</h2>
   <OneSection :name="taro">
-    <ul>
-      <li v-for="problem in taroProblems" :key="problem">{{ problem }}</li>
-    </ul>
+    <template v-slot:default>
+      <p>問題発生</p>
+    </template>
+    <template v-slot:detail>
+      <ul>
+        <li v-for="problem in taroProblems" :key="problem">{{ problem }}</li>
+      </ul>
+    </template>
   </OneSection>
   <OneSection :name="jiro" />
 </template>
